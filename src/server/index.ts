@@ -1,7 +1,15 @@
 import { createHTTPServer } from "@trpc/server/adapters/standalone";
 import { z } from "zod";
 import { db } from "./db.js";
-import { publicProcedure, router } from "./trpc.js";
+import { initTRPC } from "@trpc/server";
+/**
+ * Initialization of tRPC backend
+ * Should be done only once per backend!
+ */
+const t = initTRPC.create();
+
+const router = t.router;
+const publicProcedure = t.procedure;
 
 const appRouter = router({
   user: {
