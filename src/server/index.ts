@@ -11,6 +11,11 @@ const t = initTRPC.create();
 const router = t.router;
 const publicProcedure = t.procedure;
 
+const userSchema = z.object({
+  name: z.string(),
+  hobbies: z.map(z.string(), z.number().min(1).max(5)),
+});
+
 const appRouter = router({
   user: {
     list: publicProcedure.query(async () => {
@@ -22,13 +27,11 @@ const appRouter = router({
       const user = await db.user.findById(input);
       return user;
     }),
-    create: publicProcedure
-      .input(z.object({ name: z.string() }))
-      .mutation(async (opts) => {
-        const { input } = opts;
-        const user = await db.user.create(input);
-        return user;
-      }),
+    create: publicProcedure.input(userSchema).mutation(async (opts) => {
+      const { input } = opts;
+      const user = await db.user.create(input);
+      return user;
+    }),
   },
 });
 

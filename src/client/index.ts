@@ -15,7 +15,13 @@ const trpc = createTRPCClient<AppRouter>({
 const users = await trpc.user.list.query();
 console.log("Users:", users);
 
-const createdUser = await trpc.user.create.mutate({ name: "sachinraja" });
+const createdUser = await trpc.user.create.mutate({
+  name: "sachinraja",
+  hobbies: new Map([
+    ["cricket", 5],
+    ["football", 4],
+  ]),
+});
 console.log("Created user:", createdUser);
 
 const user = await trpc.user.byId.query("1");
