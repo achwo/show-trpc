@@ -1,7 +1,7 @@
-import { createHTTPServer } from '@trpc/server/adapters/standalone';
-import { z } from 'zod';
-import { db } from './db.js';
-import { publicProcedure, router } from './trpc.js';
+import { createHTTPServer } from "@trpc/server/adapters/standalone";
+import { z } from "zod";
+import { db } from "./db.js";
+import { publicProcedure, router } from "./trpc.js";
 
 const appRouter = router({
   user: {
@@ -32,4 +32,3 @@ const server = createHTTPServer({
 });
 
 server.listen(3434);
-
