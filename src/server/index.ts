@@ -2,19 +2,17 @@ import { createHTTPServer } from "@trpc/server/adapters/standalone";
 import { z } from "zod";
 import { db } from "./db.js";
 import { initTRPC } from "@trpc/server";
+import superjson from "superjson";
 /**
  * Initialization of tRPC backend
  * Should be done only once per backend!
  */
-const t = initTRPC.create();
+const t = initTRPC.create({
+  transformer: superjson,
+});
 
 const router = t.router;
 const publicProcedure = t.procedure;
-
-const userSchema = z.object({
-  name: z.string(),
-  hobbies: z.map(z.string(), z.number().min(1).max(5)),
-});
 
 const userSchema = z.object({
   name: z.string(),
