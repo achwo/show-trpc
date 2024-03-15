@@ -16,6 +16,11 @@ const userSchema = z.object({
   hobbies: z.map(z.string(), z.number().min(1).max(5)),
 });
 
+const userSchema = z.object({
+  name: z.string(),
+  hobbies: z.map(z.string(), z.number().min(1).max(5)),
+});
+
 const appRouter = router({
   user: {
     list: publicProcedure.query(async () => {
